@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
     var username = decoded?.username?decoded.username:''
      try {
 
-        db.query("SELECT NAME, EMAIL, LOCATION FROM USER WHERE USERNAME = ?", [username], (err, result) => {
+        db.query("SELECT NAME, EMAIL, LOCATION FROM user WHERE USERNAME = ?", [username], (err, result) => {
             if (err) throw err;
             if (result.length > 0) {
                 res.send(result)
@@ -32,7 +32,7 @@ router.post('/update', (req, res)=>{
     var decoded = jwt.decode(req.cookies.token, process.env.SECRET_KEY)
     var username = decoded?.username?decoded.username:''
      try {
-        db.query("UPDATE USER SET NAME=?, PASSWORD=?, LOCATION=? WHERE USERNAME = ?", [name,  password, location, username], (err, result) => {
+        db.query("UPDATE user SET NAME=?, PASSWORD=?, LOCATION=? WHERE USERNAME = ?", [name,  password, location, username], (err, result) => {
             if (err) throw err;
             res.send({ message: "User updated successfully" })
         })
