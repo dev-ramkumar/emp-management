@@ -6,7 +6,7 @@ var md5 = require('md5');
 
 router.get('/', function (req, res) {
      try {
-        db.query("SELECT * FROM USER ", (err, result) => {
+        db.query("SELECT * FROM user ", (err, result) => {
             if (err) throw err;
             if (result.length > 0) {
                 res.send(result)
@@ -23,7 +23,7 @@ router.get('/:name', function (req, res) {
     var username = req.params.name
      try {
 
-        db.query("SELECT NAME, EMAIL, LOCATION FROM USER WHERE USERNAME = ?", [username], (err, result) => {
+        db.query("SELECT NAME, EMAIL, LOCATION FROM user WHERE USERNAME = ?", [username], (err, result) => {
             if (err) throw err;
             if (result.length > 0) {
                 res.send(result)
@@ -45,7 +45,7 @@ router.post('/update', (req, res)=>{
     var location = req.body.location;
     var username =  req.body.username;
      try {
-        db.query("UPDATE USER SET NAME=?, PASSWORD=?, LOCATION=? WHERE USERNAME = ?", [name,  password, location, username], (err, result) => {
+        db.query("UPDATE user SET NAME=?, PASSWORD=?, LOCATION=? WHERE USERNAME = ?", [name,  password, location, username], (err, result) => {
             if (err) throw err;
             res.send({ message: "User updated successfully" })
         })
@@ -65,12 +65,12 @@ router.post("/add", (req, res) => {
     var username = req.body.email ? req.body.email.split('@')[0] : ''
     try {
 
-        db.query("SELECT USERNAME FROM USER WHERE USERNAME = ?", [username], (err, result) => {
+        db.query("SELECT USERNAME FROM user WHERE USERNAME = ?", [username], (err, result) => {
             if (err) throw err;
             if (result.length > 0) {
                 res.send({ "message": "User Already exists" })
             } else {
-                db.query("INSERT INTO USER (NAME, USERNAME, PASSWORD, EMAIL, LOCATION, ROLE) VALUES (?, ?, ?, ?, ?, ?)", [name, username, password, email, location, role], (err, result) => {
+                db.query("INSERT INTO user (NAME, USERNAME, PASSWORD, EMAIL, LOCATION, ROLE) VALUES (?, ?, ?, ?, ?, ?)", [name, username, password, email, location, role], (err, result) => {
                     if (err) throw err;
                     res.send({ "message": "User created successfully" })
                 })
