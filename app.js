@@ -27,7 +27,7 @@ var data = require('./routes/data')
 
 app.use('/api/auth', auth);
 app.use('/api/user',authorize, user);
-app.use('/api/admin',adminOnly, admin);
+app.use('/api/admin', admin);
 
 app.use('/api/mail', sendMail);
 app.use('/data',authorize, data);
