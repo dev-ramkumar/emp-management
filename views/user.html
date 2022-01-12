@@ -37,7 +37,7 @@ function update() {
     var res = JSON.parse(this.responseText)
     name.value = res[0]['NAME']
     loc.value = res[0]['LOCATION']
-    password.value = res[0]['PASSWORD']
+    // password.value = res[0]['PASSWORD']
   }
   xhttp.open("GET", "api/user");
   xhttp.setRequestHeader("Content-type", "application/json");
